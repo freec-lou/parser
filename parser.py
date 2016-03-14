@@ -28,20 +28,22 @@ tags = ('E903', 'EA03', 'EB03', 'EC03', 'ED03', 'EE03', 'EF03', 'F003', 'F103',
         '3904', '3A04', '3B04', '3D04', '3E04')
 # Номера структур данных формата STLV.
 structs = ('2304', '2F04', '2B04', '2C04', '2D04', '3C04', '1704', '0804', '0904')
-
 # Команды ФН
-<<<<<<< HEAD
 msg_start = '04'
 commands = ('02', '03', '04', '05', '06', '07', '10', '11', '12', '13', '14', '15',
             '16', '30', '31', '32', '33', '35')
-length = 4
-=======
 commands = ('07', '31')
-
 msg_start = '04'
-length = 4
 
->>>>>>> 28d0147a0b38280ae73953a0e5be0ed4881c2f89
+
+# Вывод справки
+def show_help():
+    message = """
+                Usage:
+                python {0} [src_file] [dst_file]
+              """
+    print(message.format(sys.argv[0]))
+
 
 # Приводим строку к порядку следования байтов от старшего к младшему BE.
 # Выполняем конвертацию из hex в int.
@@ -120,7 +122,11 @@ types = {
 
 
 if __name__ == "__main__":
-    f_out, f_in = sys.argv[1:]
+    try:
+        f_out, f_in = sys.argv[1:]
+    except:
+        show_help()
+        sys.exit()
     print(f_out, f_in)
     with open(f_in, 'w') as fi, open(f_out) as fo:
         for line in fo:
